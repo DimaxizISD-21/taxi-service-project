@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col m-3">
+                {% if user.is_authenticated %}
+                    <h2 class="text-center my-3">Список заказов</h2>
+
+                    <div class="col-md-6 mx-auto">
+                        {% if taxi_orders_list %}
+                            {% for order in taxi_orders_list %}
+                                <div class="card my-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><b>{{ order }}</b></h5>
+                                        <div class="card-text">
+                                            <span><b>Имя заказчика:</b> {{ order.client_name }}</span><br>
+                                            <span><b>Номер телефона:</b> {{ order.phone_number }}</span><br>
+                                            <span><b>Адресс назначения:</b> {{ order.address }}</span><br>
+                                            <span><b>Желаемое время:</b> {{ order.desired_time }}</span><br>
+                                            <span><b>Автомобиль:</b> {{ order.taxi_auto }}</span><br>
+                                        </div>
+                                        <div class="form-wrapper text-center">
+                                            <form action="{% url 'dispatcher:remove_order' order.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-danger">Заказ выполнен</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                            {% if is_paginated %}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="pagination justify-content-center">
+                                            {% if page_obj.has_previous %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                                                </li>
+                                            {% endif %}
+
+                                            {% for page in page_obj.paginator.page_range %}
+                                                {% if page_obj.number == page %}
+                                                    <li class="page-item active">
+                                                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                                    </li>
+                                                {% elif page > page_obj.number|add:-5 and page < page_obj.number|add:5 %}
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% if page_obj.has_next %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                                                </li>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        {% else %}
+                            <p class="text-center">Список заказов пуст</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <h3 class="text-center my-3">Вы не можете просматривать списки заказов!</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

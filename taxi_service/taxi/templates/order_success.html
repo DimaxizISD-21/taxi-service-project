@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center my-3">Ваш заказ был принят!</h2>
+
+                <div class="col-md-6 mx-auto">
+                    {% if taxi_orders_list %}
+                        <div class="card">
+                            <h5 class="card-title text-center">Информация: {{ taxi_orders_list }}</h5>
+                            <div class="card-body">
+                                <div class="card-text">
+                                     <div class="card-text">
+                                        <span><b>Ваше Имя:</b> {{ taxi_orders_list.client_name }}</span><br>
+                                        <span><b>Номер телефона:</b> {{ taxi_orders_list.phone_number }}</span><br>
+                                        <span><b>Адресс назначения:</b> {{ taxi_orders_list.address }}</span><br>
+                                        <span><b>Желаемое время:</b> {{ taxi_orders_list.desired_time }}</span><br>
+                                        <span><b>Автомобиль:</b> {{ taxi_orders_list.taxi_auto }}</span><br>
+                                    </div>
+                                </div>
+                                <div class="wrap-btn d-flex align-items-center justify-content-between my-3">
+                                    <a class="btn btn-sm btn-primary mx-auto" href="{% url 'taxi:home' %}">
+                                        Вернуться на главную страницу
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
