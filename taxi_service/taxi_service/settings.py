@@ -141,5 +141,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Phone field settings
 PHONENUMBER_DEFAULT_REGION = 'UA'
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
-
-# TIME_INPUT_FORMATS = '%H:%M'

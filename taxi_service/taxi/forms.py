@@ -23,8 +23,6 @@ class TaxiOrderForm(forms.Form):
     )
     desired_time = forms.TimeField(
         label='Укажите желаемое время:',
-        # widget=forms.TextInput(attrs={'class': 'form-control'}),
-        # widget=forms.TimeInput(format='%H:%M'),
         widget=TimePickerInput(),
         required=True
     )
