@@ -52,7 +52,7 @@ class RemoveTaxiOrder(View):
 
     def post(self, request, order_id):
         get_taxi_auto = TaxiAuto.objects.get(taxiorder=order_id)
-        get_taxi_auto.taxi_status = 'free'
+        get_taxi_auto.taxi_status = True
         get_taxi_auto.save()
         TaxiOrder.objects.filter(id__lte=order_id).delete()
         return redirect('dispatcher:dispatcher_profile')

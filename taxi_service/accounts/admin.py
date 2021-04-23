@@ -5,17 +5,17 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from accounts.models import MyUser
+from accounts.models import Dispatcher
 
 
-class UserCreationForm(forms.ModelForm):
+class DispatcherCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        model = MyUser
+        model = Dispatcher
         fields = ('username', 'phone_number', 'email',)
 
     def clean_password2(self):
@@ -35,7 +35,7 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class UserChangeForm(forms.ModelForm):
+class DispatcherChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's
     password hash display field.
@@ -43,7 +43,7 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = MyUser
+        model = Dispatcher
         fields = ('username', 'phone_number', 'email', 'password', 'is_active', 'is_admin')
 
     def clean_password(self):
@@ -54,8 +54,8 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserAdmin(BaseUserAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
+    form = DispatcherChangeForm
+    add_form = DispatcherCreationForm
     list_display = ('username', 'phone_number', 'email', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
@@ -72,5 +72,5 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-admin.site.register(MyUser, UserAdmin)
+admin.site.register(Dispatcher, UserAdmin)
 admin.site.unregister(Group)

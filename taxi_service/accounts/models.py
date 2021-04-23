@@ -4,7 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
-class MyUserManager(BaseUserManager):
+class MyDispatcherManager(BaseUserManager):
 
     def create_user(self, email, password=None):
         if not email:
@@ -28,7 +28,7 @@ class MyUserManager(BaseUserManager):
         return user
 
 
-class MyUser(AbstractBaseUser):
+class Dispatcher(AbstractBaseUser):
     username = models.CharField(
         verbose_name="Имя",
         max_length=50
@@ -48,7 +48,7 @@ class MyUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    objects = MyUserManager()
+    objects = MyDispatcherManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

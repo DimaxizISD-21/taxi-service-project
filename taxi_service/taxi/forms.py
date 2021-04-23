@@ -1,13 +1,16 @@
 from django import forms
+from django.core import validators
 from phonenumber_field.formfields import PhoneNumberField
 from flatpickr import TimePickerInput
 
-from taxi.models import TaxiOrder, TaxiAuto
+from taxi.models import TaxiOrder
 
 
-class TaxiOrderForm(forms.Form):
+class TaxiOrderForm(forms.ModelForm):
     client_name = forms.CharField(
         label='Введите имя:',
+        validators=[validators.RegexValidator(regex='^[А-Я][а-яєі]')],
+        error_messages={'invalid': 'Сожержимое данного поля должно быть кириллицей!'},
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         required=True
     )
@@ -26,13 +29,7 @@ class TaxiOrderForm(forms.Form):
         widget=TimePickerInput(),
         required=True
     )
-    taxi_auto = forms.ModelChoiceField(
-        queryset=TaxiAuto.objects.filter(taxi_status='free'),
-        label='Список доступных авто:',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=True
-    )
 
     class Meta:
         model = TaxiOrder
-        fields = ('client_name', 'phone_number', 'address', 'desired_time', 'taxi_auto',)
+        fields = ('client_name', 'phone_number', 'address', 'desired_time',)

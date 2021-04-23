@@ -5,14 +5,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 class TaxiAuto(models.Model):
-    TAXI_STATUS = (
-        ('free', 'Свободный'),
-        ('busy', 'Занятый')
-    )
     model_name = models.CharField(max_length=50, verbose_name='Модель авто')
-    taxi_status = models.CharField(max_length=10, choices=TAXI_STATUS, default='free', verbose_name='Статус')
-    
-    
+    taxi_status = models.BooleanField(max_length=10, default=True, verbose_name='Статус')
+
     class Meta:
         verbose_name='Такси'
         verbose_name_plural='Список такси'

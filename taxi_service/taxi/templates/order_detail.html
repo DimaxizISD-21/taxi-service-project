@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col m-3">
+                <div class="col-md-6 mx-auto">
+                    {% if taxi_orders_list %}
+
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><b>{{ taxi_orders_list }}</b></h5>
+                                <div class="card-text">
+                                    <span><b>Имя заказчика:</b> {{ taxi_orders_list.client_name }}</span><br>
+                                    <span><b>Номер телефона:</b> {{ taxi_orders_list.phone_number }}</span><br>
+                                    <span><b>Адресс назначения:</b> {{ taxi_orders_list.address }}</span><br>
+                                    <span><b>Желаемое время:</b> {{ taxi_orders_list.desired_time }}</span><br>
+                                    <span><b>Автомобиль:</b> {{ taxi_orders_list.taxi_auto }}</span><br>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

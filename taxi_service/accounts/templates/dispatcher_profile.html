@@ -7,20 +7,16 @@
                 {% if user.is_authenticated %}
                     <h2 class="text-center my-3">Список заказов</h2>
 
-                    <div class="col-md-6 mx-auto">
+                    <div class="col-md-3 mx-auto">
                         {% if taxi_orders_list %}
                             {% for order in taxi_orders_list %}
                                 <div class="card my-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center"><b>{{ order }}</b></h5>
-                                        <div class="card-text">
-                                            <span><b>Имя заказчика:</b> {{ order.client_name }}</span><br>
-                                            <span><b>Номер телефона:</b> {{ order.phone_number }}</span><br>
-                                            <span><b>Адресс назначения:</b> {{ order.address }}</span><br>
-                                            <span><b>Желаемое время:</b> {{ order.desired_time }}</span><br>
-                                            <span><b>Автомобиль:</b> {{ order.taxi_auto }}</span><br>
-                                        </div>
-                                        <div class="form-wrapper text-center">
+                                    <div class="card-body d-flex align-middle justify-content-between">
+                                        <h5 class="card-title">
+                                            <a class="text-decoration-none" style="color: black;" href="{% url 'taxi:order_detail' order.pk %} ">{{ order }}</a>
+                                        </h5>
+
+                                        <div class="form-wrapper">
                                             <form action="{% url 'dispatcher:remove_order' order.id %}" method="post">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn btn-sm btn-danger">Заказ выполнен</button>

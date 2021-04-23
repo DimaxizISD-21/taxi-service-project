@@ -92,6 +92,14 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',
+#     }
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -110,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.MyUser'
+AUTH_USER_MODEL = 'accounts.Dispatcher'
 
 
 # Internationalization
@@ -141,3 +149,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Phone field settings
 PHONENUMBER_DEFAULT_REGION = 'UA'
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
+
+# TIME_INPUT_FORMATS = '%H:%M'
